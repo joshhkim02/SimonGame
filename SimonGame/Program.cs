@@ -112,6 +112,77 @@ string[] Renders = new string[]
     #endregion
 };
 
+bool appStatus = true;
+while (appStatus == true)
+{
+    pattern.Add((Direction)rand.Next(1, 5));
+    DrawPattern();
+    DrawBase();
+    for (int i = 0; i < pattern.Count; i++)
+    {
+        ConsoleKey ch = Console.ReadKey(false).Key;
+        switch (ch)
+        {
+            case ConsoleKey.UpArrow:
+                if (pattern[i] == Direction.Up)
+                {
+                    DrawPlayerChoice(Direction.Up);
+                    score++;
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Console.WriteLine($"Game over, your score was {score}");
+                    appStatus = false;
+                }
+                break;
+            case ConsoleKey.DownArrow:
+                if (pattern[i] == Direction.Down)
+                {
+                    DrawPlayerChoice(Direction.Down);  
+                    score++;
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Console.WriteLine($"Game over, your score was {score}");
+                    appStatus = false;
+                }
+                break;
+            case ConsoleKey.LeftArrow:
+                if (pattern[i] == Direction.Left)
+                {
+                    DrawPlayerChoice(Direction.Left);
+                    score++;
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Console.WriteLine($"Game over, your score was {score}");
+                    appStatus = false;
+                }
+                break;
+            case ConsoleKey.RightArrow:
+                if (pattern[i] == Direction.Right)
+                {
+                    DrawPlayerChoice(Direction.Right);
+                    score++;
+                    Thread.Sleep(1000);
+                }
+                else
+                {
+                    Console.WriteLine($"Game over, your score was {score}");
+                    appStatus = false;
+                }
+                break;
+            case ConsoleKey.Escape:
+                Console.WriteLine("Goodbye!");
+                appStatus = false;
+                break;
+        }
+    }
+}
+
 void DrawPattern()
 {
     for (int i = 0; i < pattern.Count; i++)
@@ -122,42 +193,19 @@ void DrawPattern()
     }
 }
 
-pattern.Add((Direction)rand.Next(1, 5));
-pattern.Add((Direction)rand.Next(1, 5));
-DrawPattern();
-
-foreach (Direction d in pattern)
+void DrawBase()
 {
-    Console.WriteLine(d);
+    Console.Clear();
+    Console.WriteLine(Renders[0]);
 }
 
-//// Allow user to use their arrow keys
-//while (true)
-//{
-//    ConsoleKey ch = Console.ReadKey(false).Key;
-//    switch (ch)
-//    {
-//        case ConsoleKey.UpArrow:
-//            Console.WriteLine("You pressed the up arrow.");
-//            break;
-//        case ConsoleKey.DownArrow:
-//            Console.WriteLine("You pressed the down arrow.");
-//            break;
-//        case ConsoleKey.LeftArrow:
-//            Console.WriteLine("You pressed the left arrow.");
-//            break;
-//        case ConsoleKey.RightArrow:
-//            Console.WriteLine("You pressed the right arrow.");
-//            break;
-//    }
-//    // Exit loop if escape key is pressed
-//    if (ch == ConsoleKey.Escape)
-//    {
-//        Console.WriteLine("You pressed the escape button, goodbye!");
-//        break;
-//    }
-//}
-
+void DrawPlayerChoice(Direction direction)
+{
+    Console.Clear();
+    Console.WriteLine(Renders[(int)direction]);
+    Thread.Sleep(1000);
+    DrawBase();
+}
 
 enum Direction
 {
